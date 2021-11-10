@@ -68,6 +68,6 @@ Will look something like
 
 - Saved homes (failure) [readme](/docs/saved-homes.md)
 
-- ✅ Iterceptor [readme](docs/saved-homes.md)
+- ✅ Iterceptor [readme](docs/interceptor.md)
 
   
