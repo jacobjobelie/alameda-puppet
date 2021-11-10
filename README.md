@@ -20,11 +20,11 @@ Not every 400k property though...
 
 You get good info on properties there, but also some lies. Usually you want price, sq footage, bed rooms which is great but what you can't filter out are **all the flip jobs and home depot homes**.
 
-### Narrowing down what we want.
+### Pre-req to running the scripts - narrowing down what we want.
 
 Take the csv from https://data.acgov.org/datasets/b55c25ae04fc47fc9c188dbbfcd51192_0/about
 
-Need some way to filter use codes https://github.com/BurntSushi/xsv to the rescue.
+*Need some way to filter use codes https://github.com/BurntSushi/xsv to the rescue.*
 
 > Display in terminal the Historical Properties
 
@@ -41,7 +41,7 @@ xsv search -s UseCode '1150' Parcels.csv  \
   | xsv select APN,SitusAddress > 1150.csv
 ```
 
-These are the codes I want
+<u>These are the codes I want</u>
 
  `2100` - Two, three or four single family homes
 
@@ -66,5 +66,8 @@ Will look something like
 
 ## Puppeteer
 
-- Saved homes (failure) [readme]('./docs/saved-homes.md')
-- ✅ Iterceptor [readme]('./docs/saved-homes.md')
+- Saved homes (failure) [readme](/docs/saved-homes.md)
+
+- ✅ Iterceptor [readme](docs/saved-homes.md)
+
+  
