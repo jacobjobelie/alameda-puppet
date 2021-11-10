@@ -1,0 +1,19 @@
+{
+  "name": "alameda-puppet",
+  "packageManager": "yarn@3.0.2",
+  "scripts": {},
+  "dependencies": {
+    "dotenv": "^10.0.0",
+    "fuzzy-search": "^3.2.1",
+    "lodash": "^4.17.21",
+    "node-fetch": "^3.1.0",
+    "puppeteer": "^11.0.0",
+    "puppeteer-extra": "^3.2.3",
+    "puppeteer-extra-plugin-stealth": "^2.9.0",
+    "slack": "^11.0.2",
+    "wretch": "^1.7.6"
+  },
+  "devDependencies": {
+    "@types/lodash": "^4.14.176"
+  }
+}
