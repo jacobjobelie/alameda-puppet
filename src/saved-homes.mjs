@@ -9,6 +9,7 @@ const ZILLOW_PASS = ''
 const dataUrls = [
   'https://storage.googleapis.com/samrad-samelie/alameda/1150.json',
   'https://storage.googleapis.com/samrad-samelie/alameda/2100.json',
+  'https://storage.googleapis.com/samrad-samelie/alameda/2200.json',
 ]
 // if it crashes or you stop, pick up where you left off
 const START_INDEX = 181
@@ -30,7 +31,7 @@ puppeteer.use(StealthPlugin())
 
   const r = await Promise.all(dataUrls.map((u) => wretch(u).get().json()))
   const data = _.uniqBy(r.flat(), 'SitusAddress')
-
+  console.log(`${data.length} interests`)
   let counter = START_INDEX
   await page.goto('https://zillow.com')
 

@@ -10,10 +10,13 @@ dotenv.config()
 const bot = new Slack({
   token: process.env.SLACK_BOT_TOKEN,
 })
+const HEADLESS = true
+const NO_LOTS = true
 
 const dataUrls = [
   'https://storage.googleapis.com/samrad-samelie/alameda/1150.json',
   'https://storage.googleapis.com/samrad-samelie/alameda/2100.json',
+  'https://storage.googleapis.com/samrad-samelie/alameda/2200.json',
 ]
 const mapUrls = [
   'https://www.zillow.com/homes/for_sale/?searchQueryState=%7B%22pagination%22%3A%7B%7D%2C%22mapBounds%22%3A%7B%22west%22%3A-122.23212474567848%2C%22east%22%3A-122.14904063923316%2C%22south%22%3A37.73896450977441%2C%22north%22%3A37.79656841857922%7D%2C%22isMapVisible%22%3Atrue%2C%22filterState%22%3A%7B%22ah%22%3A%7B%22value%22%3Atrue%7D%2C%22pnd%22%3A%7B%22value%22%3Atrue%7D%2C%22abo%22%3A%7B%22value%22%3Atrue%7D%7D%2C%22isListVisible%22%3Atrue%2C%22mapZoom%22%3A14%7D',
@@ -40,9 +43,6 @@ const mapUrls = [
 
   'https://www.zillow.com/homes/for_sale/?searchQueryState=%7B%22pagination%22%3A%7B%7D%2C%22mapBounds%22%3A%7B%22west%22%3A-122.3458224349715%2C%22east%22%3A-122.26273832852618%2C%22south%22%3A37.89622719026485%2C%22north%22%3A37.95370843111834%7D%2C%22mapZoom%22%3A14%2C%22isMapVisible%22%3Atrue%2C%22filterState%22%3A%7B%22ah%22%3A%7B%22value%22%3Atrue%7D%2C%22pnd%22%3A%7B%22value%22%3Atrue%7D%2C%22abo%22%3A%7B%22value%22%3Atrue%7D%7D%2C%22isListVisible%22%3Atrue%7D',
 ]
-
-const HEADLESS = true
-const NO_LOTS = true
 
 wretch().polyfills({
   fetch,
@@ -74,6 +74,8 @@ puppeteer.use(StealthPlugin())
     ),
   )
   const data = _.uniqBy(r.flat(), 'SitusAddress')
+  console.log(`${data.length} interests`)
+
   const searcher = new FuzzySearch(data, ['SitusAddress'], {
     caseSensitive: false,
   })
@@ -87,6 +89,7 @@ puppeteer.use(StealthPlugin())
 
   page.on('requestfinished', async (request) => {
     const response = await request.response()
+    if (!response) return
 
     const responseHeaders = response.headers()
     let responseBody
@@ -151,12 +154,12 @@ puppeteer.use(StealthPlugin())
   let c = 1
   await bot.chat?.postMessage({
     channel: 'C02LZ0D2SMS',
-    text: `---------------------------------------------------------------------- ${new Date().toISOString()} --------------------------------------------------------------------  `,
+    text: `-----------------------------++++++++++++++++++++++++++++++++++++++++----------------------------------------- ${new Date().toISOString()} -----------------------------------++++++++++++++++++++++++++++++++++++---------------------------------  `,
   })
   for (const s of slackChunks) {
     await bot.chat?.postMessage({
       channel: 'C02LZ0D2SMS',
-      text: `---------------- ${c}/${slackChunks.length} --------------  `,
+      text: `-------------------------------------------------------------------------------------------------------------------------------- ${c}/${slackChunks.length} --------------------------------------------------------------------------------------------------------------------------------  `,
 
       attachments: s.map((d) => ({
         text: `${d.status2} ${d.code} ${d.price} ${d.status} ${d.url}`,
@@ -165,7 +168,7 @@ puppeteer.use(StealthPlugin())
     })
 
     c++
-    await delay(1000)
+    await delay(300)
   }
 
   await browser.close()
