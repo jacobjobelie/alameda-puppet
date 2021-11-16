@@ -67,7 +67,11 @@ Will look something like
 ## Puppeteer
 
 - Saved homes (failure) [readme](/docs/saved-homes.md)
-
 - ✅ Iterceptor [readme](docs/interceptor.md)
 
-  
+
+
+![](/screens/z.gif)
+
+![](/screens/s.gif)
+

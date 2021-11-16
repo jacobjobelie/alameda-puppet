@@ -1,4 +1,5 @@
 import puppeteer from 'puppeteer-extra'
+import path from 'path'
 import wretch from 'wretch'
 import fetch from 'node-fetch'
 import _ from 'lodash'
